@@ -24,6 +24,87 @@ turn dic to a model
     WCTestModel *test = [WCTestModel wcConfigWithDic:dic];
 ```
 
+WCTestModel.h
+```
+typedef NS_ENUM(NSInteger , WCTestEnumType) {
+    WCTestEnumTypeNone,
+    WCTestEnumType1,
+    WCTestEnumType2,
+    WCTestEnumType3
+};
+
+@interface WCTestDicModel : WCBaseModel
+@property (nonatomic, copy) NSString *dataId;
+@property (nonatomic, copy) NSString *name;
+@end
+
+@interface WCTestDicArrModel : WCBaseModel
+@property (nonatomic, copy) NSString *a;
+@end
+
+@interface WCTestModel : WCBaseModel
+
+@property (nonatomic, copy) NSString *dataId;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) NSArray * myNormalArr;
+@property (nonatomic, strong) NSArray<WCTestDicArrModel*>* myDicArr;
+@property (nonatomic, strong) WCTestDicModel *dic;
+@property (nonatomic, strong) WCTestDicModel *dic_replace;
+@property (nonatomic, assign) WCTestEnumType enumStr;
+
+@end
+```
+WCTestModel.m
+```
+@implementation WCTestDicModel
+//子类重写
+/**  return @{@"oldDicName":@"newName"}; */
+- (NSDictionary *)replacePropertyNames {
+    return @{@"id":@"dataId"};
+}
+
+@end
+
+@implementation WCTestDicArrModel
+
+@end
+
+@implementation WCTestModel
+
+//子类重写
+/**  return @{@"oldDicName":@"newName"}; */
+- (NSDictionary *)replacePropertyNames {
+    return @{@"id":@"dataId",@"dicReplace":@"dic_replace"};
+}
+/** return @{@"arrName":(array内承接的元素类)[Class class]}; */
+- (NSDictionary *)arrayProperty {
+    return @{@"myDicArr":[WCTestDicArrModel class],};
+}
+/** return @{@"dicName":[Class class]}; */
+- (NSDictionary *)dicProperty {
+    return @{@"dic":[WCTestDicModel class],
+             @"dic_replace":[WCTestDicModel class]
+             };
+}
+
+/** 哪些参数使用枚举 */
+- (NSArray *)enumArr {
+    return @[@"enumStr"];
+}
+/** return @{@"枚举对应的参数":@{@"参数值":@(enumvule)}}
+ *  需要配合 - (NSArray *)enumArr 使用
+ */
+- (NSDictionary *)enumPropertyDic {
+    return @{@"enumStr":@{@"enum1":@(WCTestEnumType1),
+                          @"enum2":@(WCTestEnumType2),
+                          @"enum3":@(WCTestEnumType3),
+                          }
+             
+             };
+}
+
+```
+
 新创建子类继承 WCBaseModel即可
 
 <a>子类重写<a>
