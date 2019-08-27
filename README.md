@@ -7,7 +7,7 @@ turn dic to a model
 
 新创建子类继承 WCBaseModel即可
 
-##子类重写
+#子类重写
 
 1.需要类型名和Key不一致
 
