@@ -5,6 +5,25 @@ turn dic to a model
 暂时未支持float 类型
 使用非常简单
 
+简单用法
+```
+ NSDictionary *dic = @{@"id":@"125",
+                          @"name":@"牛逼",
+                          @"myNormalArr":@[@"a",@"b",@"c"],
+                          @"myDicArr":@[@{@"a":@"1"},
+                                        @{@"a":@"2"},
+                                        @{@"a":@"3"}],
+                          @"dic":@{@"id":@"666",
+                                   @"name":@"二级标签"
+                                   },
+                          @"dicReplace":@{@"id":@"166",
+                                   @"name":@"二级标签Replace"
+                                   },
+                          @"enumStr":@"enum1"
+                          };
+    WCTestModel *test = [WCTestModel wcConfigWithDic:dic];
+```
+
 新创建子类继承 WCBaseModel即可
 
 <a>子类重写<a>
