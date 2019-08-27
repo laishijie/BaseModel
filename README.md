@@ -7,8 +7,8 @@ turn dic to a model
 
 新创建子类继承 WCBaseModel即可
 
-#子类重写
-
+<a>子类重写<a>
+```
 1.需要类型名和Key不一致
 
 /**  return @{@"key":@"property_name"}; */
@@ -42,3 +42,4 @@ turn dic to a model
 
 5.把Model转换成字典
 - (NSDictionary *)turnToDic;
+```
